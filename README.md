@@ -10,10 +10,18 @@ project-root/
 │   ├── raw/              # Raw downloaded datasets
 │   └── processed/        # Processed/cleaned graphs
 ├── src/
-│   └── build_graphs.py   # Person 1 - Data + Sampling Lead
-├── outputs/              # Output files (ASPL values, sampling nodes, etc.)
+│   ├── build_graphs.py   # Person 1 - Data + Sampling Lead
+│   ├── sampled_aspl.py   # Sampled ASPL computation (BFS-based)
+│   ├── edge_disruption.py# Brute-force edge disruption analysis (subgraph)
+│   └── analyze_delta_aspl.py
+│                         # Analysis of ΔASPL results and runtime benchmark
+├── outputs/              # Generated outputs (auto-created by scripts)
+│   ├── baseline_aspl.json
+│   ├── sampling_nodes.json
+│   ├── delta_aspl_subgraph.json
+│   ├── runtime_subgraph.json
+│   └── most_disruptive_edge_subgraph.json
 └── README.md
-```
 
 ## Person 1 - Data + Sampling Lead (Setup Phase)
 
@@ -64,6 +72,58 @@ pip install networkx numpy requests
 # Run the data sampling pipeline
 python src/build_graphs.py
 ```
+## Person 2 - Edge Disruption(Brute force) & ASPL Analysis (Analysis Phase)
+
+**Lead:** Ivo
+
+**Location:** `src/edge_disruption.py`, `src/sampled_aspl.py`, `src/analyze_delta_aspl.py`
+
+### Core Tasks
+
+1. **Compute Sampled ASPL**
+   - Computes sampled Average Shortest Path Length (ASPL)
+   - Uses BFS from a fixed sampling set of source nodes
+   - Sampling set is provided during the setup phase
+
+2. **Brute-Force Edge Disruption (Subgraph)**
+   - Iteratively removes each edge in the subgraph
+   - Recomputes sampled ASPL after each edge removal
+   - Measures the impact of each edge on network efficiency
+
+3. **Compute Edge Disruption Metric**
+   - Computes the disruption metric for each edge:
+     
+     `Δ(e) = ASPL(G \\ e) − ASPL(G)`
+
+4. **Runtime Benchmarking**
+   - Measures total and per-edge runtime for brute-force edge removal
+   - Reports average, minimum, and maximum runtime statistics
+
+5. **Identify Most Disruptive Edge**
+   - Identifies the edge whose removal causes the largest increase in sampled ASPL
+   - Summarizes key disruption results for downstream analysis
+
+### Outputs Delivered to Team
+
+- **Edge disruption results**
+  - `outputs/delta_aspl_subgraph.json` – Δ(e) values for tested edges
+
+- **Runtime benchmarks**
+  - `outputs/runtime_subgraph.json` – Total and average runtime statistics
+
+- **Most disruptive edge**
+  - `outputs/most_disruptive_edge_subgraph.json` – Edge with maximum Δ(e)
+
+> **Note:** Files in the `outputs/` directory are generated automatically by running the analysis scripts and are not tracked in the Git repository.
+
+### Setup
+
+```bash
+# Run edge disruption analysis on the subgraph
+python src/edge_disruption.py
+
+# Analyze results and identify the most disruptive edge
+python src/analyze_delta_aspl.py
 
 ## Dataset Information
 
