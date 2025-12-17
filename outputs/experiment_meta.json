@@ -1,0 +1,24 @@
+{
+  "graph_path": "data/processed/facebook_lcc.graphml",
+  "full_graph_nodes": 4039,
+  "full_graph_edges": 88234,
+  "seed": 7,
+  "sampling_sizes": [
+    10,
+    30,
+    50,
+    100
+  ],
+  "subgraph_sizes": [
+    100,
+    200,
+    400,
+    800,
+    1200
+  ],
+  "trials": 2,
+  "top_k_edges": 50,
+  "random_k_edges": 50,
+  "brandes_k": 400,
+  "brute_force_max_nodes": 400
+}
