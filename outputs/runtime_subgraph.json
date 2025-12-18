@@ -1,0 +1,7 @@
+{
+  "num_edges_tested": 13290,
+  "total_runtime_sec": 6.277076721191406,
+  "avg_runtime_per_edge_sec": 0.00047231578037557607,
+  "min_runtime_sec": 0.00037288665771484375,
+  "max_runtime_sec": 0.006016969680786133
+}
