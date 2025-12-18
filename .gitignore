@@ -3,4 +3,10 @@ __pycache__/
 *.pyc
 
 # Experiment outputs
-outputs/
+# Ignore all outputs by default
+outputs/*
+
+# But keep selected summary JSON files
+!outputs/delta_aspl_subgraph.json
+!outputs/runtime_subgraph.json
+!outputs/most_disruptive_edge_subgraph.json
