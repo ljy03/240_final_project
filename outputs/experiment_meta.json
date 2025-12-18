@@ -20,5 +20,5 @@
   "top_k_edges": 50,
   "random_k_edges": 50,
   "brandes_k": 400,
-  "brute_force_max_nodes": 400
+  "brute_force_max_nodes": 800
 }
